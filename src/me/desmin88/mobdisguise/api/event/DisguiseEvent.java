@@ -18,6 +18,7 @@ public class DisguiseEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
 
+    @Override
     public HandlerList getHandlers() {
         return handlers;
     }
@@ -27,7 +28,7 @@ public class DisguiseEvent extends Event implements Cancellable {
     }
 
     public DisguiseEvent(String event, Player player) {
-        super(event);
+        super();
         this.player = player;
     }
 

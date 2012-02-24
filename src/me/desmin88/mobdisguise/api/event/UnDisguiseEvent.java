@@ -18,6 +18,7 @@ public class UnDisguiseEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
 
+    @Override
     public HandlerList getHandlers() {
         return handlers;
     }
@@ -27,7 +28,7 @@ public class UnDisguiseEvent extends Event implements Cancellable {
     }
 
     public UnDisguiseEvent(String event, Player player, boolean mob) {
-        super(event);
+        super();
         this.player = player;
     }
 

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import me.desmin88.mobdisguise.commands.MDCommand;
 import me.desmin88.mobdisguise.listeners.MDEntityListener;
 import me.desmin88.mobdisguise.listeners.MDPlayerListener;
@@ -14,12 +13,10 @@ import me.desmin88.mobdisguise.utils.Disguise.MobType;
 import me.desmin88.mobdisguise.utils.DisguiseTask;
 import me.desmin88.mobdisguise.utils.PacketUtils;
 import net.minecraft.server.DataWatcher;
-
-import org.bukkit.entity.*;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.config.Configuration;
 
 public class MobDisguise extends JavaPlugin {
     public static Set<String> disList = new HashSet<String>();
@@ -40,7 +37,7 @@ public class MobDisguise extends JavaPlugin {
     public final MDPlayerListener playerlistener = new MDPlayerListener(this);
     public final MDEntityListener entitylistener = new MDEntityListener(this);
     public static final String pref = "[MobDisguise] ";
-    public static Configuration cfg;
+    public static FileConfiguration cfg;
     public static boolean perm;
     public static PluginDescriptionFile pdf;
 
@@ -66,32 +63,32 @@ public class MobDisguise extends JavaPlugin {
                 return;
             }
         }
-        cfg = this.getConfiguration(); // Get config
+        cfg = this.getConfig(); // Get config
 
-        if (cfg.getKeys().isEmpty()) { // Config hasn't been made
+        if (cfg.getKeys(true).isEmpty()) { // Config hasn't been made
             System.out.println(pref + "config.yml not found, making with default values");
-            cfg.setProperty("RealDrops.enabled", false);
-            cfg.setProperty("Permissions.enabled", true);
-            cfg.setProperty("MobTarget.enabled", true);
-            cfg.setProperty("DisableItemPickup", true);
+            cfg.set("RealDrops.enabled", false);
+            cfg.set("Permissions.enabled", true);
+            cfg.set("MobTarget.enabled", true);
+            cfg.set("DisableItemPickup", true);
             for (String mobtype : MobType.types) {
-                cfg.setHeader("#Setting a mobtype to false will not allow a player to disguise as that type");
-                cfg.setProperty("Blacklist." + mobtype, true); // Just making
+            //    cfg.setHeader("#Setting a mobtype to false will not allow a player to disguise as that type");
+                cfg.set("Blacklist." + mobtype, true); // Just making
             }
-            cfg.save();
+            this.saveConfig();
         }
-        if (cfg.getProperty("MobTarget.enabled") == null || cfg.getProperty("DisableItemPickup.enabled") == null) {
-            cfg.setProperty("MobTarget.enabled", true);
-            cfg.setProperty("DisableItemPickup.enabled", true);
-            cfg.save();
+        if (cfg.get("MobTarget.enabled") == null || cfg.get("DisableItemPickup.enabled") == null) {
+            cfg.set("MobTarget.enabled", true);
+            cfg.set("DisableItemPickup.enabled", true);
+            this.saveConfig();
         }
-        if (cfg.getProperty("Blacklist.enderman") == null) {
-            cfg.setProperty("Blacklist.enderman", true);
-            cfg.setProperty("Blacklist.silverfish", true);
-            cfg.setProperty("Blacklist.cavespider", true);
+        if (cfg.get("Blacklist.enderman") == null) {
+            cfg.set("Blacklist.enderman", true);
+            cfg.set("Blacklist.silverfish", true);
+            cfg.set("Blacklist.cavespider", true);
         }
 
-        cfg.save();
+        this.saveConfig();
         perm = cfg.getBoolean("Permissions.enabled", true);
 
         PluginManager pm = getServer().getPluginManager();

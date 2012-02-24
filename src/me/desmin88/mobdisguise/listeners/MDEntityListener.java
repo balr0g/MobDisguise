@@ -2,7 +2,6 @@ package me.desmin88.mobdisguise.listeners;
 
 import me.desmin88.mobdisguise.MobDisguise;
 import me.desmin88.mobdisguise.utils.RealDropsUtils;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

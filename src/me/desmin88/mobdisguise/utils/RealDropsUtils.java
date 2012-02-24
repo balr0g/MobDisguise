@@ -1,9 +1,7 @@
 package me.desmin88.mobdisguise.utils;
 
 import java.util.Random;
-
 import me.desmin88.mobdisguise.MobDisguise;
-
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -52,7 +50,7 @@ public class RealDropsUtils {
 
         }
 
-        return new ItemStack(null);
+        return null;
 
     }
 }

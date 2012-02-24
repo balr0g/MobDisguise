@@ -19,6 +19,7 @@ public class DisguiseCommandEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
 
+    @Override
     public HandlerList getHandlers() {
         return handlers;
     }
@@ -28,7 +29,7 @@ public class DisguiseCommandEvent extends Event implements Cancellable {
     }
 
     public DisguiseCommandEvent(String event, CommandSender sender, String[] args) {
-        super(event);
+        super();
         this.sender = sender;
         this.args = args;
     }
